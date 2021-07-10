@@ -4,11 +4,11 @@ import com.dunzo.Providers.BeverageComposerProvider;
 import com.dunzo.Providers.composers.Icomposer;
 import com.dunzo.constants.BeverageConst;
 
-public class BlackTeaBeverage implements Ibeverage{
+public class HotTea  implements Ibeverage{
 
     Icomposer composerDetails;
     // here you need to set composer details using providers
-    public BlackTeaBeverage()
+    public HotTea()
     {
         this.composerDetails=BeverageComposerProvider.getInstance().getBeverageComposer(this.getType());
     }
@@ -20,7 +20,7 @@ public class BlackTeaBeverage implements Ibeverage{
 
     @Override
     public void doAction() {
-        System.out.println("I am drinking Black Tea");
+        System.out.println("I am drinking HotTea");
         
     }
 
@@ -28,8 +28,6 @@ public class BlackTeaBeverage implements Ibeverage{
     public Icomposer getComposerDetails() {
         // composer factory will return composer details for each beverage
         return composerDetails;
-    }
-
-
+    } 
     
 }

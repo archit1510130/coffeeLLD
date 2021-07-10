@@ -9,7 +9,7 @@ public enum IngredientsConst {
     TEA_LEAVES_SYRUP ("Tea Leaves") ,
     GREEN_MIXTURE ("Green Mixture") ,
     ELAICHI_SYRYP("Elaichi Syrup"),
-    COFFEE_SYRUP("Coffee Syrup");
+    COFFEE_SYRUP("Coffee Syrup");   
 
     private String ingredientValue;
 

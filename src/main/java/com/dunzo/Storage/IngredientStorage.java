@@ -33,4 +33,8 @@ public class IngredientStorage {
         return this.ingredientsStorage;
     }
 
+    public void setStorage( Map<String,Integer> iMap){
+        this.ingredientsStorage=iMap;
+    }
+
 }
