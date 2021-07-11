@@ -9,6 +9,8 @@ import com.dunzo.Providers.IngredientProvider;
 import com.dunzo.Providers.composers.Icomposer;
 import com.dunzo.beverages.BeverageFactory;
 import com.dunzo.beverages.Ibeverage;
+import com.dunzo.exceptions.BeverageNotSupportedException;
+import com.dunzo.exceptions.IngredientNotSupportedException;
 
 public class CoffeeMachine {
 
@@ -17,6 +19,7 @@ public class CoffeeMachine {
     private Semaphore semaphore;
     private CoffeeMachineThreadExeutor coffeeMachineThreadExeutor;
 
+    // Used Builder Pattern for creating coffee machine
     public CoffeeMachine(Builder builder) {
         machineDetails = new MachineDetails();
         machineDetails.setBrandName(builder.brandName);
@@ -56,21 +59,21 @@ public class CoffeeMachine {
         }
     }
 
-    public Ibeverage requestBeverage(String beverageType)
+    public Ibeverage requestBeverage(String beverageType) throws IngredientNotSupportedException, BeverageNotSupportedException
     {
-
         if(!isSwitchOn)
         {
-            // throw exception here
+            System.out.println("Switch is Off");
         }
-        if(1==1)
+        if(BeverageFactory.getBeverage(beverageType)==null)
         {
+            throw new BeverageNotSupportedException("Beverage Not Supported");
             // if beverage does not suport
         }
         boolean isAvailableSlot=semaphore.tryAcquire();
         if(!isAvailableSlot)
         {
-            // no available slot there // throw
+           System.out.println("No Slot now");
             
         }
         // print thread number
@@ -85,7 +88,7 @@ public class CoffeeMachine {
     }
 
 
-    private synchronized void checkIngredientAvaillity(String beverageType)
+    private synchronized void checkIngredientAvaillity(String beverageType) throws IngredientNotSupportedException
     {
         Icomposer composer=BeverageComposerProvider.getInstance().getBeverageComposer(beverageType);
         Map<String ,Integer> composition= composer.getRulesForComposer();
@@ -114,13 +117,14 @@ public class CoffeeMachine {
     }
 
 
-    private synchronized void updateIngredientStore(Ibeverage beverage) {
+    private synchronized void updateIngredientStore(Ibeverage beverage) throws IngredientNotSupportedException {
         Icomposer composer = BeverageComposerProvider.getInstance().getBeverageComposer(beverage.getType());
         Map<String, Integer> composition = composer.getRulesForComposer();
 
         for (Map.Entry<String, Integer> ingredientQuantity : composition.entrySet()) {
             int amount =IngredientProvider.getIngredientQuantity(ingredientQuantity.getKey());
             amount -= ingredientQuantity.getValue();
+            System.out.println(ingredientQuantity.getKey()+" "+ingredientQuantity.getValue()+" "+amount);
             IngredientProvider.updateExistingIngredientQuantity(ingredientQuantity.getKey(), amount);
         }
     }

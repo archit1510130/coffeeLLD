@@ -15,7 +15,7 @@ public class GreenTea  implements Ibeverage{
 
     @Override
     public String getType() {
-        return BeverageConst.BEVERAGE_BLACK_TEA.getbeverageValue();
+        return BeverageConst.BEVERAGE_GREEN_TEA.getbeverageValue();
     }
 
     @Override

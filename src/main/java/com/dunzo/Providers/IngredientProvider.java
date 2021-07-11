@@ -1,6 +1,7 @@
 package com.dunzo.Providers;
 
 import com.dunzo.Storage.IngredientStorage;
+import com.dunzo.exceptions.IngredientNotSupportedException;
 
 public class IngredientProvider {
 
@@ -18,21 +19,20 @@ public class IngredientProvider {
         return IngredientStorage.getInstance().getStorage().get(ingredientType)>0;
     }
 
-    public static Integer getIngredientQuantity(String ingredientType)
+    public static Integer getIngredientQuantity(String ingredientType) throws IngredientNotSupportedException
     {
         if(!isIngredientSupported(ingredientType))
         {
-            // throw exception
+            throw new IngredientNotSupportedException("Ingredient Is not Supported");
         }
         return IngredientStorage.getInstance().getStorage().get(ingredientType);
     }
 
-    public static void updateExistingIngredientQuantity(String ingredientType,Integer quantity)
+    public static void updateExistingIngredientQuantity(String ingredientType,Integer quantity) throws IngredientNotSupportedException
     {
         if(!isIngredientSupported(ingredientType))
         {
-            // throw exception
-
+            throw new IngredientNotSupportedException("Ingredient Is not Supported");
         }
         IngredientStorage.getInstance().getStorage().put(ingredientType,quantity);
     }

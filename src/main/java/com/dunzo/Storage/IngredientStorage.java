@@ -1,13 +1,14 @@
 package com.dunzo.Storage;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 
 // This should be singleton Class 
 public class IngredientStorage {
 
-    private Map<String ,Integer> ingredientsStorage=new HashMap<>();
+    private Hashtable<String ,Integer> ingredientsStorage=new Hashtable<>();
     private static IngredientStorage instance;
 
     private IngredientStorage() {
@@ -29,11 +30,11 @@ public class IngredientStorage {
       return instance;
     }
 
-    public Map<String,Integer> getStorage(){
+    public Hashtable<String,Integer> getStorage(){
         return this.ingredientsStorage;
     }
 
-    public void setStorage( Map<String,Integer> iMap){
+    public void setStorage( Hashtable<String,Integer> iMap){
         this.ingredientsStorage=iMap;
     }
 
